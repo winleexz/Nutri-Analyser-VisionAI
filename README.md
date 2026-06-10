@@ -17,13 +17,13 @@ Within seconds, a side-by-side comparison matrix and an objective verdict popped
 
 ## 🏗️ System Architecture
 The Nutri-Analyser application uses a decoupled, resource-optimised client-server pipeline designed to execute heavy multi-modal inference within a low-memory constraints container environment.
+
 ![architecture](https://cdn-uploads.huggingface.co/production/uploads/61350aa938a697fa5a1533a2/L4RnqmNewWLHSon8LM6K9.jpeg)
 
 ## ⚙️ How It Works Technically
 1. **4-Bit Memory Compression**: A raw 7B model running at FP16 precision requires ~17GB–18GB of VRAM to process image tokens and text generation, easily surpassing standard free cluster caps. By enforcing an NF4 quantization configuration, the model footprint is compressed down to a highly efficient ~5.5GB, leaving plenty of memory headroom on an Nvidia T4
 
-2. **Structured Chain-of-Thought Prompting**: the system prompt initiates an explicit, multi-stage logical pipeline including normalising the nutritional labels:	
-$$\text{Value}_{\text{per 100g}} = \left(\frac{\text{Value}_{\text{per serving}}}{\text{Serving Size in grams}}\right) \times 100$$
+2. **Structured Chain-of-Thought Prompting**: the system prompt initiates an explicit, multi-stage logical pipeline including normalising the nutritional labels
 
 3. **Deterministic Evaluation**: Setting temperature=0.0 and do_sample=False forces strict greedy token selection. This shifts the model from a "creative writer" into a deterministic calculator, ensuring accurate fractional arithmetic and table structuring
 
@@ -33,17 +33,9 @@ $$\text{Value}_{\text{per 100g}} = \left(\frac{\text{Value}_{\text{per serving}}
 3. **Prompt Engineering for Precision Math**: Language models are notoriously prone to hallucinating arithmetic. The biggest breakthrough was forcing the model to print its literal step-by-step fractional equations before outputting the final visual table layout – holding the model's logic accountable and dramatically boosting accuracy
 
 
-***Check out the app and code below to see how the orchestration works under the hood 👇***
+***Check out the app and blog below to see how the orchestration works under the hood 👇***
 1. https://huggingface.co/spaces/Winnielee/Nutri-Analyser-AI
 2. https://huggingface.co/spaces/Winnielee/Nutri-Analyser-AI/tree/main
-
-<table>
-  <tr>
-    <td width="400px" align="center">
-      <b>🛒 Nutri-Analyser Real-World Demo</b><br><br>
-      https://cdn-uploads.huggingface.co/production/uploads/61350aa938a697fa5a1533a2/bI1chSlr-56Ou7CO5bw0C.mp4
-    </td>
-  </tr>
 </table>
 
 
