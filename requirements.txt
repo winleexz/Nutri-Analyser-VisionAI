@@ -1,0 +1,8 @@
+gradio
+transformers>=4.48.0
+torch
+torchvision
+accelerate
+pillow
+spaces
+bitsandbytes
